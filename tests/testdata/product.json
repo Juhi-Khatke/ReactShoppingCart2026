@@ -1,0 +1,9 @@
+{
+  "baseURL": "https://react-shopping-cart-67954.firebaseapp.com/products",
+    "ProductData" :
+    {
+        "firstProduct":"Cropped Stay Groovy off white",
+        "Product_10_90_Count": 4,
+        "Product_14_90_Count": 2
+}
+}
