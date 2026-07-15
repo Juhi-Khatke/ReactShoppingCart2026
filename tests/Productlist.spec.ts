@@ -1,4 +1,4 @@
-import { test, expect } from './actions/productAction';
+import { test, expect } from './actions/ProductAction';
 import data from './testdata/product.json';
 
 test.describe('React Shopping Cart E2E', () => {
@@ -8,7 +8,7 @@ test.describe('React Shopping Cart E2E', () => {
     expect(await productActions.getProductCount()).toBeGreaterThan(0);
   });
 
-  test('TC2 - Product UI visible', async ({ productActions }) => {
+  test('TC2 - Product UI visible', async ({ productActions }) =>{
     await productActions.open(data.baseURL);
     await productActions.verifyProductsVisible();
   });
