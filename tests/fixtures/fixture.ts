@@ -1,6 +1,5 @@
 import { test as base } from '@playwright/test';
 import { Product } from '../pages/ProductPage';
-
 import { ProductActions } from '../actions/ProductAction';
 
 type Fixtures = {

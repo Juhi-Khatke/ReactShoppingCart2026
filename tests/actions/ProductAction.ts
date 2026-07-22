@@ -3,23 +3,34 @@ import { Product } from '../pages/ProductPage';
 
 type ProductActionsFixture = {
   productActions: {
+    [x: string]: any;
     open: (url: string) => Promise<void>;
     getProductCount: () => Promise<number>;
     verifyProductsVisible: () => Promise<void>;
     addFirstProductToCart: () => Promise<void>;
     verifyCartCount: (count: number) => Promise<void>;
     filterBySize: (size: string) => Promise<void>;
+    productValidation: (testData: any) => Promise<void>;
     productPage: {
-    [x: string]: any;
-    products: {
-    first: () => any;
+      [x: string]: any; 
+      products: {
+        first: () => any;
       };
-
-
     };
   };
 };
 
+type ProductData = 
+{
+    firstProduct : string
+    Product_10_90_Count : number
+    Product_14_90_Count : number
+    Product_Count1 : number
+    SizeS : string
+    CardQuantity : number
+    AfterCartRemoveMessage : string
+    SfirstCartTotalAmount : string
+}
 
 export const test = base.extend<ProductActionsFixture>({
   productActions: async ({ page }, use) => {
@@ -44,6 +55,11 @@ export const test = base.extend<ProductActionsFixture>({
       filterBySize: async (size: string) => {
         await page.locator(`label:has-text("${size}")`).first().click();
         await page.waitForTimeout(1000);
+      },
+      productValidation: async (testData: any) => {
+        await expect(page.locator('//p[text() = "Cropped Stay Groovy off white"]')).toHaveText(testData.firstProduct);
+        await expect(page.locator('//b[text() = "10"]/parent::p')).toHaveCount(testData.Product_10_90_Count);
+        await expect(page.locator('//b[text() = "14"]/parent::p/span[text() = ".90"]')).toHaveCount(testData.Product_14_90_Count);
       },
       productPage: {
         products: {
@@ -84,8 +100,19 @@ export class ProductActions {
   }
 
   async filterBySize(size: string) {
-    await this.productPage.sizeFilter(size).click();
+    await this.productPage.click();
   }
+async productValidation(testData:ProductData)
+    {
+        // verify 1st product Identify products priced $10.90
+        await expect(this.productPage.productVisible).toHaveText(testData.firstProduct)
+        // verify products priced $10.90 count is 4
+        await expect(this.productPage.countProduct).toHaveCount(testData.Product_10_90_Count)
+        // verify products priced $14.90 count is 2
+        await expect(this.productPage.productSecond).toHaveCount(testData.Product_14_90_Count)
+        
+    }
+
 
 }
 
