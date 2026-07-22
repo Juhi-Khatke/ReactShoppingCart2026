@@ -1,3 +1,4 @@
+import { platform } from 'node:os';
 import { test, expect } from './actions/ProductAction';
 import data from './testdata/product.json';
 
@@ -8,11 +9,12 @@ test.describe('React Shopping Cart E2E', () => {
     expect(await productActions.getProductCount()).toBeGreaterThan(0);
   });
 
-  test('TC2 - Product UI visible', async ({ productActions }) =>{
+  test('TC2 - Product UI visible', async ({ productActions }) => {
     await productActions.open(data.baseURL);
     await productActions.verifyProductsVisible();
   });
 
+  
   test('TC3 - Add product to cart', async ({ productActions }) => {
     await productActions.open(data.baseURL);
     await productActions.addFirstProductToCart();
@@ -61,5 +63,9 @@ test.describe('React Shopping Cart E2E', () => {
     await productActions.open(data.baseURL);
     await productActions.verifyCartCount(0);
   });
+  test('TC_011 Verify number of products priced at $10.90 and $14.90', async({productActions}) => {
+     await productActions.open(data.baseURL);
+  await productActions.productValidation(data.ProductData)
 
+})
 })
