@@ -21,7 +21,7 @@ test.describe('React Shopping Cart E2E', () => {
     await productActions.verifyCartCount(1);
   });
 
-  test('TC4 - Add 2 products', async ({ productActions }) => {
+  test('TC4 - Add 2 products', async ({ productActions }) =>{
     await productActions.open(data.baseURL);
     await productActions.addFirstProductToCart();
     await productActions.addFirstProductToCart();
@@ -67,5 +67,5 @@ test.describe('React Shopping Cart E2E', () => {
      await productActions.open(data.baseURL);
   await productActions.productValidation(data.ProductData)
 
-})
+  })
 })
